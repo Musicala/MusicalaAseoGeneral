@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist de Aseo | Musicala</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== HERO con logo y título ===== -->
+  <header class="site-hero">
+    <img src="logo.png" alt="Musicala" class="logo-hero">
+    <h1>Checklist de Aseo</h1>
+    <p class="subtitle">Tu asistente visual de limpieza — modo <b>Tinder</b> ✨</p>
+  </header>
+
+  <!-- ===== FILTROS ===== -->
+  <section class="filters-bar">
+    <div class="filters-inner">
+      <select id="f-area" class="chip">
+        <option value="">Todas las áreas</option>
+      </select>
+      <select id="f-tipo" class="chip">
+        <option value="">Tipo</option>
+      </select>
+      <select id="f-frecuencia" class="chip">
+        <option value="">Frecuencia</option>
+      </select>
+      <button id="btn-filtrar" class="chip primary">Filtrar</button>
+      <button id="btn-reset" class="chip ghost">Reset</button>
+    </div>
+
+    <div class="stats-bar">
+      <span id="badgePend" class="stat">Pend: 0</span>
+      <span id="badgeCurso" class="stat">Tiempo: 0 min</span>
+      <span id="badgeComp" class="stat">Hechas hoy: 0</span>
+    </div>
+  </section>
+
+  <!-- ===== TARJETA PRINCIPAL ===== -->
+  <main class="stage">
+    <div class="card" id="cardBody">
+      <span id="pillPriority" class="pill">Prioridad —</span>
+      <h2 id="taskTitle">Tarea actual</h2>
+      <p id="area">Área</p>
+      <p id="subarea">Subárea o elemento</p>
+
+      <div class="details-wrap">
+        <details>
+          <summary>Ver detalles de limpieza</summary>
+          <ul class="facts">
+            <li><strong>Tipo:</strong> <span id="tipo">—</span></li>
+            <li><strong>Frecuencia:</strong> <span id="frecuencia">—</span></li>
+            <li><strong>Nivel:</strong> <span id="nivel">—</span></li>
+            <li><strong>Criticidad:</strong> <span id="criticidad">—</span></li>
+            <li><strong>SLA máx:</strong> <span id="sla">—</span></li>
+            <li><strong>Tiempo estimado:</strong> <span id="min">—</span> min</li>
+            <li><strong>Última vez:</strong> <span id="fecha">—</span></li>
+            <li><strong>Insumos:</strong> <span id="insumos">—</span></li>
+            <li><strong>EPP:</strong> <span id="epp">—</span></li>
+            <li><strong>Observaciones:</strong> <span id="obs">—</span></li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="actions">
+        <button id="btn-saltar" class="action">⏭ Saltar</button>
+        <button id="btn-hecho" class="action primary">✔ Hecho</button>
+      </div>
+    </div>
+
+    <p id="emptyState" class="empty hidden">No hay tareas pendientes 🎉</p>
+    <p id="statusMsg" class="status">Cargando...</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
