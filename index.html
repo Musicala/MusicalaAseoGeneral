@@ -3,77 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checklist de Aseo | Musicala</title>
+  <title>Seguimiento de Aseo y Organizacion | Musicala</title>
+  <meta name="theme-color" content="#f9f9f9">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- ===== HERO con logo y título ===== -->
-  <header class="site-hero">
-    <img src="logo.png" alt="Musicala" class="logo-hero">
-    <h1>Checklist de Aseo</h1>
-    <p class="subtitle">Tu asistente visual de limpieza — modo <b>Tinder</b> ✨</p>
-  </header>
-
-  <!-- ===== FILTROS ===== -->
-  <section class="filters-bar">
-    <div class="filters-inner">
-      <select id="f-area" class="chip">
-        <option value="">Todas las áreas</option>
-      </select>
-      <select id="f-tipo" class="chip">
-        <option value="">Tipo</option>
-      </select>
-      <select id="f-frecuencia" class="chip">
-        <option value="">Frecuencia</option>
-      </select>
-      <button id="btn-filtrar" class="chip primary">Filtrar</button>
-      <button id="btn-reset" class="chip ghost">Reset</button>
-    </div>
-
-    <div class="stats-bar">
-      <span id="badgePend" class="stat">Pend: 0</span>
-      <span id="badgeCurso" class="stat">Tiempo: 0 min</span>
-      <span id="badgeComp" class="stat">Hechas hoy: 0</span>
-    </div>
-  </section>
-
-  <!-- ===== TARJETA PRINCIPAL ===== -->
-  <main class="stage">
-    <div class="card" id="cardBody">
-      <span id="pillPriority" class="pill">Prioridad —</span>
-      <h2 id="taskTitle">Tarea actual</h2>
-      <p id="area">Área</p>
-      <p id="subarea">Subárea o elemento</p>
-
-      <div class="details-wrap">
-        <details>
-          <summary>Ver detalles de limpieza</summary>
-          <ul class="facts">
-            <li><strong>Tipo:</strong> <span id="tipo">—</span></li>
-            <li><strong>Frecuencia:</strong> <span id="frecuencia">—</span></li>
-            <li><strong>Nivel:</strong> <span id="nivel">—</span></li>
-            <li><strong>Criticidad:</strong> <span id="criticidad">—</span></li>
-            <li><strong>SLA máx:</strong> <span id="sla">—</span></li>
-            <li><strong>Tiempo estimado:</strong> <span id="min">—</span> min</li>
-            <li><strong>Última vez:</strong> <span id="fecha">—</span></li>
-            <li><strong>Insumos:</strong> <span id="insumos">—</span></li>
-            <li><strong>EPP:</strong> <span id="epp">—</span></li>
-            <li><strong>Observaciones:</strong> <span id="obs">—</span></li>
-          </ul>
-        </details>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow">Musicala</p>
+        <h1 id="pageTitle">Ruta de aseo clara para cada jornada</h1>
+        <p id="pageSubtitle" class="hero__subtitle">
+          La app organiza que revisar, que limpiar y que reponer sin estar persiguiendo al equipo.
+        </p>
       </div>
-
-      <div class="actions">
-        <button id="btn-saltar" class="action">⏭ Saltar</button>
-        <button id="btn-hecho" class="action primary">✔ Hecho</button>
+      <div class="hero__meta">
+        <img src="logo.png" alt="Logo Musicala" class="hero__logo">
       </div>
-    </div>
+    </header>
 
-    <p id="emptyState" class="empty hidden">No hay tareas pendientes 🎉</p>
-    <p id="statusMsg" class="status">Cargando...</p>
-  </main>
+    <main class="layout">
+      <section id="workerView" class="panel panel--worker">
+        <div class="worker-topbar">
+          <div>
+            <p class="section-kicker">Operacion diaria</p>
+            <h2>Tu siguiente tarea</h2>
+          </div>
+          <button id="refreshWorkerBtn" class="btn btn--ghost btn--compact">Actualizar</button>
+        </div>
 
-  <script src="app.js"></script>
+        <article class="task-focus" id="taskFocus">
+          <h3 id="focusTaskTitle">Cargando tarea...</h3>
+          <p id="focusTaskArea" class="task-focus__area">Espacio</p>
+          <p id="focusTaskSubarea" class="task-focus__subarea">Detalle</p>
+          <p id="focusTaskGuide" class="task-focus__guide">Aqui aparecera la explicacion corta de que hacer.</p>
+
+          <div class="task-grid">
+            <div class="mini-card">
+              <span class="mini-card__label">Tiempo</span>
+              <strong id="focusTaskMinutes">0 min</strong>
+            </div>
+            <div class="mini-card">
+              <span class="mini-card__label">Que revisar</span>
+              <strong id="focusTaskChecklist">-</strong>
+            </div>
+            <div class="mini-card">
+              <span class="mini-card__label">Implementos</span>
+              <strong id="focusTaskSuppliesMini">-</strong>
+            </div>
+            <div class="mini-card">
+              <span class="mini-card__label">Proteccion</span>
+              <strong id="focusTaskEppMini">-</strong>
+            </div>
+          </div>
+
+          <div class="details-block">
+            <div>
+              <span class="details-block__label">Ten en cuenta</span>
+              <p id="focusTaskNotes">Sin observaciones.</p>
+            </div>
+            <div class="details-block__last">
+              <span class="details-block__label">Ultima vez realizada</span>
+              <p id="focusTaskLastDone">Sin registro</p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="skipTaskBtn" class="btn btn--ghost">Saltar</button>
+            <button id="completeTaskBtn" class="btn btn--primary">Marcar hecha</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="adminView" class="panel panel--admin hidden">
+        <div class="panel__header">
+          <div>
+            <p class="section-kicker">Vista administrativa</p>
+            <h2>Control general del servicio</h2>
+          </div>
+          <button id="refreshAdminBtn" class="btn btn--ghost">Actualizar panel</button>
+        </div>
+
+        <div class="admin-note">
+          Usa la URL con <code>?admin</code>, <code>#/admin</code> o una ruta que termine en <code>/admin</code> para entrar a este modo.
+        </div>
+
+        <div id="adminSummary" class="summary-grid"></div>
+
+        <div class="admin-panels admin-panels--top">
+          <section class="list-panel">
+            <div class="panel__header panel__header--tight">
+              <div>
+                <p class="section-kicker">Salud operativa</p>
+                <h3>Estado detallado de tareas</h3>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Tarea</th>
+                    <th>Area</th>
+                    <th>Frecuencia</th>
+                    <th>Estado</th>
+                    <th>Ultima vez</th>
+                    <th>Vence</th>
+                    <th>Hace cuanto</th>
+                  </tr>
+                </thead>
+                <tbody id="taskStatusTable"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="list-panel">
+            <div class="panel__header panel__header--tight">
+              <div>
+                <p class="section-kicker">Configuracion</p>
+                <h3>Crear o editar tareas</h3>
+              </div>
+              <button id="newTaskBtn" class="btn btn--ghost btn--compact">Nueva tarea</button>
+            </div>
+
+            <form id="taskEditorForm" class="admin-form">
+              <input type="hidden" id="taskIdInput">
+
+              <label class="form-field">
+                <span>Nombre de la tarea</span>
+                <input id="taskNameInput" required>
+              </label>
+
+              <div class="form-grid">
+                <label class="form-field">
+                  <span>Area</span>
+                  <input id="taskAreaInput" required>
+                </label>
+                <label class="form-field">
+                  <span>Subarea</span>
+                  <input id="taskSubareaInput">
+                </label>
+              </div>
+
+              <div class="form-grid">
+                <label class="form-field">
+                  <span>Tipo</span>
+                  <input id="taskTypeInput">
+                </label>
+                <label class="form-field">
+                  <span>Frecuencia</span>
+                  <input id="taskFrequencyInput" placeholder="Diaria, Semanal, Mensual..." required>
+                </label>
+              </div>
+
+              <div class="form-grid form-grid--triple">
+                <label class="form-field">
+                  <span>Nivel</span>
+                  <input id="taskCleaningLevelInput">
+                </label>
+                <label class="form-field">
+                  <span>Criticidad</span>
+                  <input id="taskCriticalityInput" placeholder="Alta, Media, Baja" required>
+                </label>
+                <label class="form-field">
+                  <span>Tiempo min</span>
+                  <input id="taskMinutesInput" type="number" min="0" step="1" required>
+                </label>
+              </div>
+
+              <div class="form-grid form-grid--triple">
+                <label class="form-field">
+                  <span>SLA horas</span>
+                  <input id="taskSlaInput" type="number" min="0" step="1">
+                </label>
+                <label class="form-field">
+                  <span>Responsable</span>
+                  <input id="taskResponsibleInput">
+                </label>
+                <label class="form-field">
+                  <span>Evidencia URL</span>
+                  <input id="taskEvidenceInput">
+                </label>
+              </div>
+
+              <label class="form-field">
+                <span>Implementos</span>
+                <textarea id="taskSuppliesInput" rows="2"></textarea>
+              </label>
+
+              <label class="form-field">
+                <span>Proteccion</span>
+                <textarea id="taskEppInput" rows="2"></textarea>
+              </label>
+
+              <label class="form-field">
+                <span>Observaciones</span>
+                <textarea id="taskNotesInput" rows="3"></textarea>
+              </label>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn--primary">Guardar tarea</button>
+                <button type="button" id="deleteTaskBtn" class="btn btn--danger">Eliminar</button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div class="admin-panels">
+          <section class="list-panel">
+            <div class="panel__header panel__header--tight">
+              <div>
+                <p class="section-kicker">Actividad</p>
+                <h3>Registros recientes</h3>
+              </div>
+            </div>
+            <div id="recentActivity" class="activity-list"></div>
+          </section>
+
+          <section class="list-panel">
+            <div class="panel__header panel__header--tight">
+              <div>
+                <p class="section-kicker">Estado por area</p>
+                <h3>Avance operativo</h3>
+              </div>
+            </div>
+            <div id="areaBreakdown" class="area-list"></div>
+          </section>
+        </div>
+
+        <section class="list-panel">
+          <div class="panel__header panel__header--tight">
+            <div>
+              <p class="section-kicker">Catalogo</p>
+              <h3>Tareas registradas</h3>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tarea</th>
+                  <th>Area</th>
+                  <th>Frecuencia</th>
+                  <th>Criticidad</th>
+                  <th>Tiempo</th>
+                  <th>Accion</th>
+                </tr>
+              </thead>
+              <tbody id="taskCatalogTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
